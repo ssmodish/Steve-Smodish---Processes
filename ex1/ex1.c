@@ -9,6 +9,19 @@
 int main(void)
 {
     // Your code here
+    int prevX = 12222;
+
+    int pid = fork();
+
+    if (pid == 0)
+    { // child process satisfies this branch
+        prevX = 2
+        printf("hello, child here (prevX: %d) \n", prevX);
+    }
+    else
+    {
+        printf("hello, parent here (prevX: %d) \n", prevX);
+    }
 
     return 0;
 }
