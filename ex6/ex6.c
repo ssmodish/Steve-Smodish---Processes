@@ -21,6 +21,24 @@ and `clock_gettime()` should work just fine.
 int main()
 {
     // Your code here
-    
+    unsigned long diff;
+	struct timespec start, end;
+	int i;
+    unsigned long avg;
+
+	for(i = 0; i < number_iter; i++){
+        /* measure time */
+        clock_gettime(CLOCK_MONOTONIC, &start);	/* mark start time */
+        write(1, 0, 0);
+        clock_gettime(CLOCK_MONOTONIC, &end);	/* mark the end time */
+
+        diff += BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    }
+
+    avg = diff / number_iter;
+    printf("%d system calls took %lu nanoseconds overall\n", number_iter, diff);
+    printf("Average time of a single system call = %lu\n", avg);
+
+
     return 0;
 }
