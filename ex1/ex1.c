@@ -9,6 +9,20 @@
 int main(void)
 {
     // Your code here
+    int x = 100;
+
+    int pid = fork();
+
+    if (pid == 0)
+    { // child process satisfies this branch
+        x = 2;
+        printf("hello, child here (x: %d) \n", x);
+    }
+    else
+    {
+        x = 50;
+        printf("hello, parent here (x: %d) \n", x);
+    }
 
     return 0;
 }

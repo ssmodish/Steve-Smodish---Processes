@@ -11,6 +11,16 @@
 int main(void)
 {
     // Your code here    
+    int rc = fork();
 
+    if (rc == 0)
+    { // child process satisfies this branch
+        execlp("/bin/ls", "/bin/ls", NULL);
+    }
+    else
+    {
+        int wc = waitpid(rc, NULL, 0);
+        printf("goodbye\n");
+    }
     return 0;
 }

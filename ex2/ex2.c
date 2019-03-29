@@ -9,6 +9,22 @@
 int main(void)
 {
     // Your code here 
+    FILE * text;
+    text = fopen("text.txt", "w");
+
+    int rc = fork();
+
+    if (rc == 0)
+    { // child process satisfies this branch
+        fprintf(text, "hello, child here. \n");
+        fclose(text);
+    }
+    else
+    {
+        fprintf(text, "hello, parent here. \n");
+        fclose(text);
+    }
+
     
     return 0;
 }
