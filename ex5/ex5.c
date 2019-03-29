@@ -19,19 +19,26 @@ int main(void)
     // Your code here
     char buf[128];
     int fd[2];
+    
     pipe(fd);
 
-    write(fd[1], msg1, MSGSIZE);
-    read(fd[0], buf, sizeof(buf));
-    printf("%s\n", buf);
+    int pid = fork();
+    
+    if(pid==0){
+        write(fd[1], msg1, MSGSIZE);
+        write(fd[1], msg2, MSGSIZE);
+        write(fd[1], msg3, MSGSIZE);
+    }
+    else
+    {
+        read(fd[0], buf, MSGSIZE);
+        printf("%s\n", buf);
 
-    write(fd[1], msg2, MSGSIZE);
-    read(fd[0], buf, sizeof(buf));
-    printf("%s\n", buf);
+        read(fd[0], buf, MSGSIZE);
+        printf("%s\n", buf);
 
-    write(fd[1], msg3, MSGSIZE);
-    read(fd[0], buf, sizeof(buf));
-    printf("%s\n", buf);
-
+        read(fd[0], buf, MSGSIZE);
+        printf("%s\n", buf);
+    }
     return 0;
 }
